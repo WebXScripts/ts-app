@@ -88,7 +88,6 @@ final class TeamSpeak
                     }
                 });
 
-
             usleep(5000);
         }
     }

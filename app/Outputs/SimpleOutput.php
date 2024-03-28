@@ -4,12 +4,10 @@ declare(strict_types=1);
 
 namespace App\Outputs;
 
-use App\Traits\IsOutput;
+use Override;
 
-class SimpleOutput implements BaseOutput
+class SimpleOutput extends BaseOutput
 {
-    use IsOutput;
-
     public function __construct(
         public int    $error_id,
         public string $message,
@@ -17,8 +15,11 @@ class SimpleOutput implements BaseOutput
     {
     }
 
-    public static function createOutput(array $data): self
+    #[Override]
+    public static function createOutput(string $data): self
     {
+        $data = explode(' ', $data);
+        
         return new self(
             error_id: (int)str_replace('error id=', '', $data[1]),
             message: str_replace('msg=', '', $data[2])

@@ -27,7 +27,21 @@ return [
             'interval' => 60,
             'channel_id' => 3,
             'format' => 'H:i'
-        ]
+        ],
+        'user_guard' => [
+            'class' => App\Functions\Interval\UserGuard::class,
+            'enabled' => true,
+            'interval' => 15,
+            'check_nickname' => true,
+            'check_description' => true,
+            'punishment' => 'kick', // 'kick' or 'ban'
+            'ban_time' => 60,
+            'bad_words' => [
+                'admin',
+                'moderator',
+                'serverquery',
+            ]
+        ],
     ],
     'on_join' => [
         'welcome_message' => [

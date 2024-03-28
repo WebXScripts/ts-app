@@ -4,7 +4,11 @@ declare(strict_types=1);
 
 namespace App\Outputs;
 
-interface BaseOutput
+use App\Traits\IsOutput;
+
+abstract class BaseOutput
 {
-    public static function createOutput(array $data): self;
+    use IsOutput;
+
+    public abstract static function createOutput(string $data): self;
 }

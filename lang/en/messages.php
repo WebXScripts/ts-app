@@ -7,4 +7,5 @@ return [
     'welcome_poke' => 'Hello :nickname on the server!',
 
     'wrong_nickname' => 'You have to change your nickname!',
+    'wrong_description' => 'You have to change your description!',
 ];

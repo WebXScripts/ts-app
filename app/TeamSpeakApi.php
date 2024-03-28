@@ -6,6 +6,7 @@ namespace App;
 
 use App\Inputs\ChannelEdit;
 use App\Outputs\BaseOutput;
+use App\Outputs\Methods\GetClients;
 use App\Outputs\Methods\ServerInfo;
 use App\Outputs\SimpleOutput;
 use App\Utils\SocketWrapper;
@@ -109,5 +110,18 @@ final readonly class TeamSpeakApi
         }
 
         return new SimpleOutput(1, 'Failed to ban client.');
+    }
+
+    public function getClients(?array $flags = null): BaseOutput
+    {
+        try {
+            return $this
+                ->socketWrapper
+                ->send('clientlist ' . implode(' ', array_map(static fn($flag) => '-' . $flag->value, $flags ?? [])), new GetClients());
+        } catch (Exception $e) {
+            Log::error('Failed to get clients: ' . $e);
+        }
+
+        return new SimpleOutput(1, 'Failed to get clients.');
     }
 }

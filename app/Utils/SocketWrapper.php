@@ -70,10 +70,10 @@ readonly class SocketWrapper
         $data = str_replace(["\r", "\n"], '', $data);
 
         if ($output) {
-            return $output::createOutput(explode(' ', $data));
+            return $output::createOutput($data);
         }
 
-        return SimpleOutput::createOutput(explode(' ', $data));
+        return SimpleOutput::createOutput($data);
     }
 
     /**
