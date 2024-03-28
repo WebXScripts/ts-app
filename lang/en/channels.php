@@ -4,4 +4,5 @@ declare(strict_types=1);
 
 return [
     'clients_online' => '[cspacer]Clients online :online/:max',
+    'clock' => '[cspacer]Current time :time',
 ];

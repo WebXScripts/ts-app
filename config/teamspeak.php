@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use App\Functions\Interval\Clock;
 use App\Functions\OnJoin\WelcomeMessage;
 use App\Functions\OnJoin\WelcomePoke;
 
@@ -19,13 +20,20 @@ return [
             'server_name' => [
                 'class' => App\Functions\Interval\ServerName::class,
                 'enabled' => true,
-                'interval' => 5,
+                'interval' => 30,
             ],
             'clients_online' => [
                 'class' => App\Functions\Interval\ClientsOnline::class,
                 'enabled' => true,
-                'interval' => 5,
+                'interval' => 30,
                 'channel_id' => 1,
+            ],
+            'clock' => [
+                'class' => Clock::class,
+                'enabled' => true,
+                'interval' => 60,
+                'channel_id' => 3,
+                'format' => 'H:i'
             ]
         ],
         'on_join' => [
