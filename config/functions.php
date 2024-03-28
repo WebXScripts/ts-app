@@ -4,6 +4,12 @@ declare(strict_types=1);
 
 return [
     'interval' => [
+        'app_information' => [
+            'class' => App\Functions\Interval\AppInformation::class,
+            'enabled' => true,
+            'interval' => 60 * 5,
+            'channel_id' => 4,
+        ],
         'server_name' => [
             'class' => App\Functions\Interval\ServerName::class,
             'enabled' => true,
