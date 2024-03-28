@@ -50,5 +50,5 @@
     },
     "minimum-stability": "stable",
     "prefer-stable": true,
-    "bin": ["ts3-bot"]
+    "bin": ["ts-app"]
 }
