@@ -21,6 +21,12 @@ return [
                 'enabled' => true,
                 'interval' => 5,
             ],
+            'clients_online' => [
+                'class' => App\Functions\Interval\ClientsOnline::class,
+                'enabled' => true,
+                'interval' => 5,
+                'channel_id' => 1,
+            ]
         ],
         'on_join' => [
             'welcome_message' => [

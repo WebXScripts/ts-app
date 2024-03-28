@@ -4,8 +4,10 @@ declare(strict_types=1);
 
 namespace App;
 
+use App\Inputs\ChannelEdit;
 use App\Outputs\BaseOutput;
 use App\Outputs\Methods\ServerInfo;
+use App\Outputs\SimpleOutput;
 use App\Utils\SocketWrapper;
 use Exception;
 use Illuminate\Support\Facades\Log;
@@ -77,5 +79,20 @@ final readonly class TeamSpeakApi
         }
 
         return null;
+    }
+
+    public function channelEdit(ChannelEdit $channelEdit): SimpleOutput
+    {
+        try {
+            return $this
+                ->socketWrapper
+                ->send(
+                    'channeledit ' . $channelEdit->toSocket()
+                );
+        } catch (Exception $e) {
+            Log::error('Failed to edit channel: ' . $e);
+        }
+
+        return new SimpleOutput(1, 'Failed to edit channel.');
     }
 }
