@@ -3,9 +3,10 @@
 </p>
 <h4> <center>Free TeamSpeak3/TeamSpeak5 open-source ServerQuery bot project.</center></h4>
 
-<center><b>ts-app</b> is a free open-source alternative for paid applications.</center>
+<p align="center"><b>ts-app</b> is a free open-source alternative for paid applications.</p>
 
-<center>I avoid using old ts3admin.class.php and implemented my own TeamSpeak telnet client.</center>
+<p align="center">I avoid using old ts3admin.class.php and implemented my own TeamSpeak telnet client.</p>
+
 
 - Built on [Laravel Zero](https://laravel-zero.com/).
 - There's no old ts3admin.class.php.
