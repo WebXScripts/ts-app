@@ -32,6 +32,10 @@ readonly class OnJoinHandler extends TeamSpeakEvent
         EventOutput $client
     ): void
     {
+        if ($client->client_type !== 0) {
+            return;
+        }
+        
         collect(config('functions.on_join'))
             ->filter(static fn($function) => class_exists($function['class']))
             ->filter(static fn($function) => $function['enabled'])

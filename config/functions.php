@@ -38,5 +38,16 @@ return [
             'class' => App\Functions\OnJoin\WelcomePoke::class,
             'enabled' => true,
         ],
+        'nickname_checker' => [
+            'class' => App\Functions\OnJoin\NicknameChecker::class,
+            'enabled' => true,
+            'punishment' => 'ban', // 'kick' or 'ban'
+            'ban_time' => 60,
+            'bad_nicknames' => [
+                'ServerQuery',
+                'admin',
+                'moderator',
+            ]
+        ],
     ]
 ];
