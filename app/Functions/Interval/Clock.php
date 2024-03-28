@@ -12,7 +12,6 @@ use SensitiveParameter;
 
 class Clock extends IntervalFunction
 {
-
     #[Override]
     public static function handle(
         #[SensitiveParameter] TeamSpeakApi $teamSpeakApi
@@ -20,9 +19,9 @@ class Clock extends IntervalFunction
     {
         $teamSpeakApi->channelEdit(
             new ChannelEdit(
-                cid: config('teamspeak.functions.interval.clock.channel_id'),
+                cid: config('functions.interval.clock.channel_id'),
                 channel_name: __('channels.clock', [
-                    'time' => Carbon::now()->format(config('teamspeak.functions.interval.clock.format'))
+                    'time' => Carbon::now()->format(config('functions.interval.clock.format'))
                 ])
             )
         );

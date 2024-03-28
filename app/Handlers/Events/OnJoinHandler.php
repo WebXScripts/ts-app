@@ -7,6 +7,7 @@ namespace App\Handlers\Events;
 use App\Outputs\Events\ClientJoinOutput;
 use App\Outputs\Events\EventOutput;
 use App\TeamSpeakApi;
+use Override;
 use SensitiveParameter;
 
 readonly class OnJoinHandler extends TeamSpeakEvent
@@ -20,16 +21,18 @@ readonly class OnJoinHandler extends TeamSpeakEvent
         $this->process();
     }
 
+    #[Override]
     protected function process(): void
     {
         $this->runMethods($this->decode($this->data));
     }
 
+    #[Override]
     protected function runMethods(
         EventOutput $client
     ): void
     {
-        collect(config('teamspeak.functions.on_join'))
+        collect(config('functions.on_join'))
             ->filter(static fn($function) => class_exists($function['class']))
             ->filter(static fn($function) => $function['enabled'])
             ->each(fn($function) => new $function['class'](
@@ -38,6 +41,7 @@ readonly class OnJoinHandler extends TeamSpeakEvent
             ));
     }
 
+    #[Override]
     protected function decode(string $data): ClientJoinOutput
     {
         return ClientJoinOutput::fromCollection(collect(explode(' ', $data))

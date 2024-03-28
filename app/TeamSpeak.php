@@ -61,7 +61,7 @@ final class TeamSpeak
         $this->socketWrapper = new SocketWrapper($this->socket);
         $this->api = new TeamSpeakApi($this->socketWrapper);
 
-        $this->loadedIntervalFunctions = collect(config('teamspeak.functions.interval'))
+        $this->loadedIntervalFunctions = collect(config('functions.interval'))
             ->filter(static fn($function) => $function['enabled']);
 
         stream_set_blocking($this->socket, false);

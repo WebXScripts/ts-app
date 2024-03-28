@@ -21,7 +21,7 @@ class ClientsOnline extends IntervalFunction
         $serverInfo = $teamSpeakApi->getServerInfo();
         $teamSpeakApi->channelEdit(
             new ChannelEdit(
-                cid: config('teamspeak.functions.interval.clients_online.channel_id'),
+                cid: config('functions.interval.clients_online.channel_id'),
                 channel_name: __('channels.clients_online', [
                     'online' => $serverInfo->clients_online - 1,
                     'max' => $serverInfo->max_clients
