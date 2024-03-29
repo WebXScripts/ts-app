@@ -21,7 +21,7 @@ readonly class UserGuard extends IntervalFunction
     {
         /** @var GetClients $clients */
         $clients = $teamSpeakApi->getClients([
-            ClientListFlag::INFO
+            ClientListFlag::INFO,
         ]);
 
         $clients->list()

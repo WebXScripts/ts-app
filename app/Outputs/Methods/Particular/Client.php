@@ -28,7 +28,7 @@ readonly class Client
         public ?bool       $is_recording = null,
         public ?bool       $is_channel_commander = null,
         public ?string     $unique_identifier = null,
-        public ?Collection $servergroups = null,
+        public ?Collection $groups = null,
         public ?int        $channel_group_id = null,
         public ?int        $channel_group_inherited_channel_id = null,
         public ?string     $version = null,

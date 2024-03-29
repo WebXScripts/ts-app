@@ -26,7 +26,7 @@ readonly class ChatAdvertising extends IntervalFunction
         $clients = $teamSpeakApi->getClients();
         $clients->list()
             ->filter(static fn(Client $client) => $client->client_type === 0)
-            ->filter(static fn(Client $client) => $client->servergroups->contains(config('functions.interval.chat_advertising.group_id')))
+            ->filter(static fn(Client $client) => $client->groups->contains(config('functions.interval.chat_advertising.group_id')))
             ->each(
                 static function (Client $client) use (&$teamSpeakApi, $messages, &$currentMessage) {
                     $teamSpeakApi->sendMessage($client->client_id, $messages[$currentMessage]);
