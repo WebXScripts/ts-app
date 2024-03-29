@@ -42,6 +42,16 @@ return [
                 'serverquery',
             ]
         ],
+        'chat_advertising' => [
+            'class' => App\Functions\Interval\ChatAdvertising::class,
+            'enabled' => true,
+            'interval' => 15,
+            'ignored_groups' => [],
+            'messages' => [
+                'Visit our website: your-website.com',
+                'Visit our forum: your-forum.com',
+            ]
+        ],
     ],
     'on_join' => [
         'welcome_message' => [

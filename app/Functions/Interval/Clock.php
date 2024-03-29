@@ -10,11 +10,12 @@ use Carbon\Carbon;
 use Override;
 use SensitiveParameter;
 
-class Clock extends IntervalFunction
+readonly class Clock extends IntervalFunction
 {
     #[Override]
     public static function handle(
-        #[SensitiveParameter] TeamSpeakApi $teamSpeakApi
+        #[SensitiveParameter]
+        TeamSpeakApi $teamSpeakApi
     ): void
     {
         $teamSpeakApi->channelEdit(

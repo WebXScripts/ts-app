@@ -9,7 +9,7 @@ use App\TeamSpeakApi;
 use Override;
 use SensitiveParameter;
 
-class ServerName extends IntervalFunction
+readonly class ServerName extends IntervalFunction
 {
     #[Override]
     public static function handle(

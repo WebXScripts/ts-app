@@ -62,7 +62,9 @@ class GetClients extends BaseOutput
                     last_connected: (int)$client->get('client_lastconnected'),
                     icon_id: (int)$client->get('client_icon_id'),
                     country: $client->get('client_country'),
-                    connection_client_ip: $client->get('connection_client_ip'),
+                    connection_client_ip: $client->get('connection_client_ip')
+                        ? str_replace('error', '', $client->get('connection_client_ip'))
+                        : null,
                     badges: $client->get('client_badges')
                 );
             });

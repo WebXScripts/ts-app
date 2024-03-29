@@ -10,11 +10,12 @@ use App\TeamSpeakApi;
 use Override;
 use SensitiveParameter;
 
-class ClientsOnline extends IntervalFunction
+readonly class ClientsOnline extends IntervalFunction
 {
     #[Override]
     public static function handle(
-        #[SensitiveParameter] TeamSpeakApi $teamSpeakApi
+        #[SensitiveParameter]
+        TeamSpeakApi $teamSpeakApi
     ): void
     {
         /** @var ServerInfo $serverInfo */

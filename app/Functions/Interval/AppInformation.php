@@ -9,9 +9,10 @@ use App\TeamSpeakApi;
 use Override;
 use SensitiveParameter;
 
-class AppInformation extends IntervalFunction
+readonly class AppInformation extends IntervalFunction
 {
-    #[Override] public static function handle(
+    #[Override]
+    public static function handle(
         #[SensitiveParameter]
         TeamSpeakApi $teamSpeakApi
     ): void

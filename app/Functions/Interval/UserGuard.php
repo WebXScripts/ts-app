@@ -11,7 +11,7 @@ use App\TeamSpeakApi;
 use Override;
 use SensitiveParameter;
 
-class UserGuard extends IntervalFunction
+readonly class UserGuard extends IntervalFunction
 {
     #[Override]
     public static function handle(
