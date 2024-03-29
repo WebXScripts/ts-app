@@ -9,12 +9,12 @@ use Illuminate\Support\Collection;
 readonly class Client
 {
     public function __construct(
-        public ?int        $client_id = null,
-        public ?int        $channel_id = null,
-        public ?int        $database_id = null,
-        public ?string     $nickname = null,
+        public int         $client_id,
+        public int         $channel_id,
+        public int         $database_id,
+        public string      $nickname,
+        public int         $client_type,
         public ?string     $description = null,
-        public ?int        $client_type = null,
         public ?bool       $away = null,
         public ?string     $away_message = null,
         public ?bool       $flag_talking = null,

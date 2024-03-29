@@ -65,7 +65,7 @@ final readonly class TeamSpeakApi
         try {
             return $this
                 ->socketWrapper
-                ->send('serverinfo', new ServerInfo());
+                ->send('serverinfo', ServerInfo::class);
         } catch (Exception $e) {
             Log::error('Failed to get server info: ' . $e);
         }
@@ -117,7 +117,7 @@ final readonly class TeamSpeakApi
         try {
             return $this
                 ->socketWrapper
-                ->send('clientlist ' . implode(' ', array_map(static fn($flag) => '-' . $flag->value, $flags ?? [])), new GetClients());
+                ->send('clientlist ' . implode(' ', array_map(static fn($flag) => '-' . $flag->value, $flags ?? [])), GetClients::class);
         } catch (Exception $e) {
             Log::error('Failed to get clients: ' . $e);
         }

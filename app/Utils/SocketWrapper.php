@@ -8,6 +8,7 @@ use App\Exceptions\ConnectionException;
 use App\Exceptions\TeamSpeakException;
 use App\Outputs\BaseOutput;
 use App\Outputs\SimpleOutput;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 
 readonly class SocketWrapper
@@ -40,7 +41,7 @@ readonly class SocketWrapper
      * @return SimpleOutput
      * @throws ConnectionException
      */
-    public function send(string $command, ?BaseOutput $output = null): BaseOutput
+    public function send(string $command, ?string $requestedOutput = null): BaseOutput
     {
         $data = '';
 
@@ -52,7 +53,6 @@ readonly class SocketWrapper
         });
 
         do {
-
             $data .= stream_get_contents($this->socket);
 
             if (Str::contains($data, 'Welcome to the TeamSpeak 3 ServerQuery interface')) {
@@ -62,6 +62,10 @@ readonly class SocketWrapper
             if (Str::contains($data, 'error id=3329')) {
                 throw new ConnectionException('Connection has been closed.', 4);
             }
+
+            if (Str::length($data) > 0) {
+                Log::debug('command: ' . $command . ' ---> data: ' . $data);
+            }
         } while (
             Str::position($data, 'msg=') === false
             || Str::position($data, 'error id=') === false
@@ -69,8 +73,11 @@ readonly class SocketWrapper
 
         $data = str_replace(["\r", "\n"], '', $data);
 
-        if ($output) {
-            return $output::createOutput($data);
+        if ($requestedOutput) {
+            return (new OutputHandler(
+                data: $data,
+                outputClass: $requestedOutput
+            ))->handle();
         }
 
         return SimpleOutput::createOutput($data);

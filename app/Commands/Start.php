@@ -16,7 +16,7 @@ class Start extends Command
     {
         $this->header();
 
-        $this->info(__('start.connecting'));
+        $this->info(__('bot.connecting'));
         $bot = TeamSpeak::up();
 
         try {
@@ -30,15 +30,15 @@ class Start extends Command
             return;
         }
 
-        $this->info(__('start.connected'));
+        $this->info(__('bot.connected'));
         $bot->listen();
     }
 
     private function header(): void
     {
-        $this->info(__('start.welcome'));
-        $this->info(__('start.version', ['version' => config('app.version')]));
-        $this->info(__('start.author', ['author' => config('app.author')]));
+        $this->info(__('bot.welcome'));
+        $this->info(__('bot.version', ['version' => config('app.version')]));
+        $this->info(__('bot.author', ['author' => config('app.author')]));
         $this->newLine();
     }
 }

@@ -12,31 +12,52 @@ use Override;
 class GetClients extends BaseOutput
 {
     public function __construct(
+        public int          $error_id,
+        public string       $message,
+
         /** @var ?Collection<Client> $clients */
-        public ?Collection $clients = null,
+        private ?Collection $clients = null,
     )
     {
     }
 
+    /**
+     * @param string $data
+     * @return BaseOutput
+     * @todo Horrible code, but it works for now.
+     */
     #[Override]
     public static function createOutput(string $data): BaseOutput
     {
+        $error = collect(explode(' ', $data))
+            ->mapWithKeys(static function ($item) {
+                $split = explode('=', $item);
+                return [$split[0] => $split[1] ?? null];
+            });
+
+        if ($error->get('id') !== '0') {
+            return new self(
+                error_id: (int)$error->get('id'),
+                message: $error->get('msg') ?: ''
+            );
+        }
+
         $clients = collect(explode('|', $data))
             ->map(static function ($client) {
-                $client = explode(' ', $client);
-                $client = collect($client)
+                return collect(explode(' ', $client))
                     ->mapWithKeys(static function ($item) {
                         $split = explode('=', $item);
                         return [$split[0] => $split[1] ?? null];
                     });
-
+            })
+            ->map(static function ($client) {
                 return new Client(
                     client_id: (int)$client->get('clid'),
                     channel_id: (int)$client->get('cid'),
                     database_id: (int)$client->get('client_database_id'),
                     nickname: $client->get('client_nickname'),
-                    description: $client->get('client_description'),
                     client_type: (int)$client->get('client_type'),
+                    description: $client->get('client_description'),
                     away: (bool)$client->get('client_away'),
                     away_message: $client->get('client_away_message'),
                     flag_talking: (bool)$client->get('client_flag_talking'),
@@ -70,7 +91,18 @@ class GetClients extends BaseOutput
             });
 
         return new self(
+            error_id: (int)$error->get('id'),
+            message: $error->get('msg') ?: '',
             clients: $clients
         );
+    }
+
+    public function list(): Collection
+    {
+        if ($this->clients === null) {
+            return collect();
+        }
+
+        return $this->clients;
     }
 }
