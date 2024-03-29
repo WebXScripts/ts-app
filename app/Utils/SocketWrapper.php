@@ -8,7 +8,6 @@ use App\Exceptions\ConnectionException;
 use App\Exceptions\TeamSpeakException;
 use App\Outputs\BaseOutput;
 use App\Outputs\SimpleOutput;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 
 readonly class SocketWrapper
@@ -37,7 +36,7 @@ readonly class SocketWrapper
     /**
      * Send and receive output from server
      * @param string $command
-     * @param BaseOutput|null $output
+     * @param string|null $requestedOutput
      * @return SimpleOutput
      * @throws ConnectionException
      */
@@ -61,10 +60,6 @@ readonly class SocketWrapper
 
             if (Str::contains($data, 'error id=3329')) {
                 throw new ConnectionException('Connection has been closed.', 4);
-            }
-
-            if (Str::length($data) > 0) {
-                Log::debug('command: ' . $command . ' ---> data: ' . $data);
             }
         } while (
             Str::position($data, 'msg=') === false

@@ -24,7 +24,7 @@ class ServerInfo extends BaseOutput
     #[Override]
     public static function createOutput(string $data): self
     {
-        $output = collect(explode(' ', $data))
+        $output = collect(explode(' ', preg_replace('/error id=\d+ msg=\w+/', '', $data)))
             ->mapWithKeys(static function ($item) {
                 $split = explode('=', $item);
                 return [$split[0] => $split[1] ?? null];

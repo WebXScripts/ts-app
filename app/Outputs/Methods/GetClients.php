@@ -12,45 +12,30 @@ use Override;
 class GetClients extends BaseOutput
 {
     public function __construct(
-        public int          $error_id,
-        public string       $message,
-
-        /** @var ?Collection<Client> $clients */
-        private ?Collection $clients = null,
+        /** @var Collection<Client> $clients */
+        private readonly Collection $clients
     )
     {
     }
 
     /**
      * @param string $data
-     * @return BaseOutput
-     * @todo Horrible code, but it works for now.
+     * @return GetClients
      */
     #[Override]
-    public static function createOutput(string $data): BaseOutput
+    public static function createOutput(string $data): self
     {
-        $error = collect(explode(' ', $data))
-            ->mapWithKeys(static function ($item) {
-                $split = explode('=', $item);
-                return [$split[0] => $split[1] ?? null];
-            });
-
-        if ($error->get('id') !== '0') {
-            return new self(
-                error_id: (int)$error->get('id'),
-                message: $error->get('msg') ?: ''
-            );
-        }
-
-        $clients = collect(explode('|', $data))
-            ->map(static function ($client) {
-                return collect(explode(' ', $client))
+        return new self(
+            clients: collect(explode(
+                '|',
+                preg_replace('/error id=\d+ msg=\w+/', '', $data)
+            ))->map(static function (string $clientData) {
+                return collect(explode(' ', $clientData))
                     ->mapWithKeys(static function ($item) {
                         $split = explode('=', $item);
                         return [$split[0] => $split[1] ?? null];
                     });
-            })
-            ->map(static function ($client) {
+            })->map(static function ($client) {
                 return new Client(
                     client_id: (int)$client->get('clid'),
                     channel_id: (int)$client->get('cid'),
@@ -71,9 +56,10 @@ class GetClients extends BaseOutput
                     is_recording: (bool)$client->get('client_is_recording'),
                     is_channel_commander: (bool)$client->get('client_is_channel_commander'),
                     unique_identifier: $client->get('client_unique_identifier'),
-                    servergroups: collect(explode(',', (string)$client->get('client_servergroups')))->map(static function ($servergroup) {
-                        return (int)$servergroup;
-                    }),
+                    servergroups: collect(explode(',', (string)$client->get('client_servergroups')))
+                        ->map(static function (string $group) {
+                            return (int)$group;
+                        }),
                     channel_group_id: (int)$client->get('client_channel_group_id'),
                     channel_group_inherited_channel_id: (int)$client->get('client_channel_group_inherited_channel_id'),
                     version: $client->get('client_version'),
@@ -83,26 +69,15 @@ class GetClients extends BaseOutput
                     last_connected: (int)$client->get('client_lastconnected'),
                     icon_id: (int)$client->get('client_icon_id'),
                     country: $client->get('client_country'),
-                    connection_client_ip: $client->get('connection_client_ip')
-                        ? str_replace('error', '', $client->get('connection_client_ip'))
-                        : null,
+                    connection_client_ip: $client->get('connection_client_ip'),
                     badges: $client->get('client_badges')
                 );
-            });
-
-        return new self(
-            error_id: (int)$error->get('id'),
-            message: $error->get('msg') ?: '',
-            clients: $clients
+            })
         );
     }
 
     public function list(): Collection
     {
-        if ($this->clients === null) {
-            return collect();
-        }
-
         return $this->clients;
     }
 }
