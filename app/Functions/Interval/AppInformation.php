@@ -17,7 +17,7 @@ readonly class AppInformation extends IntervalFunction
         TeamSpeakApi $teamSpeakApi
     ): void
     {
-        $teamSpeakApi->channelEdit(
+        $teamSpeakApi->channel->edit(
             new ChannelEdit(
                 cid: config('functions.interval.app_information.channel_id'),
                 channel_description: __('channels.app_information_description', [

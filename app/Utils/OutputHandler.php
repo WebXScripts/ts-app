@@ -49,7 +49,7 @@ readonly class OutputHandler
             );
         }
 
-        return call_user_func($this->outputClass . '::createOutput', $this->data);
+        return $this->outputClass::createOutput($this->data);
     }
 
     private function lookForErrors(Stringable $errorId, Stringable $message): bool

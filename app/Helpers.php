@@ -16,3 +16,25 @@ if (!function_exists('bool_null')) {
         return (bool)$args['field'];
     }
 }
+
+if (!function_exists('escape_text')) {
+    function escape_text(string $text): string
+    {
+        $replacements = collect([
+            "\t" => '\t',
+            "\v" => '\v',
+            "\r" => '\r',
+            "\n" => '\n',
+            "\f" => '\f',
+            ' '  => '\s',
+            '|'  => '\p',
+            '/'  => '\/'
+        ]);
+
+        $replacements->each(static function ($replacement, $search) use (&$text) {
+            $text = str_replace($search, $replacement, $text);
+        });
+
+        return $text;
+    }
+}

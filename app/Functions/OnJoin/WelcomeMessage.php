@@ -11,7 +11,7 @@ readonly class WelcomeMessage extends OnJoinFunction
     #[Override]
     public function handle(): void
     {
-        $this->teamSpeakApi->sendMessage(
+        $this->teamSpeakApi->client->message(
             $this->data->client_id,
             __('messages.welcome_pm', ['nickname' => $this->data->client_nickname])
         );

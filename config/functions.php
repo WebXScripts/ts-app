@@ -13,7 +13,7 @@ return [
         'server_name' => [
             'class' => App\Functions\Interval\ServerName::class,
             'enabled' => true,
-            'interval' => 30,
+            'interval' => 60,
         ],
         'clients_online' => [
             'class' => App\Functions\Interval\ClientsOnline::class,

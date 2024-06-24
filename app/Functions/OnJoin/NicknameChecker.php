@@ -24,7 +24,7 @@ readonly class NicknameChecker extends OnJoinFunction
 
     private function banUser(): void
     {
-        $this->teamSpeakApi->banClient(
+        $this->teamSpeakApi->client->kick(
             $this->data->client_id,
             config('functions.on_join.nickname_checker.ban_time'),
             __('messages.wrong_nickname')
@@ -33,7 +33,7 @@ readonly class NicknameChecker extends OnJoinFunction
 
     private function kickUser(): void
     {
-        $this->teamSpeakApi->kickClient(
+        $this->teamSpeakApi->client->kick(
             $this->data->client_id,
             __('messages.wrong_nickname')
         );
