@@ -33,9 +33,9 @@ final readonly class ServerApi
     }
 
     /**
-     * @return ServerInfo|null
+     * @return ServerInfo
      */
-    public function info(): ?BaseOutput
+    public function info(): BaseOutput
     {
         try {
             return $this
@@ -45,6 +45,6 @@ final readonly class ServerApi
             Log::error('Failed to get server info: ' . $e);
         }
 
-        return null;
+        return new SimpleOutput(1, 'Failed to get serverInfo.');
     }
 }

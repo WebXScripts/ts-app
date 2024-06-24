@@ -19,14 +19,16 @@ readonly class ClientsOnline extends IntervalFunction
     ): void
     {
         $serverInfo = $teamSpeakApi->server->info();
-        $teamSpeakApi->channel->edit(
-            new ChannelEdit(
-                cid: config('functions.interval.clients_online.channel_id'),
-                channel_name: __('channels.clients_online', [
-                    'online' => $serverInfo->clients_online - 1,
-                    'max' => $serverInfo->max_clients
-                ])
-            )
-        );
+        if (!$serverInfo->hasError()) {
+            $teamSpeakApi->channel->edit(
+                new ChannelEdit(
+                    cid: config('functions.interval.clients_online.channel_id'),
+                    channel_name: __('channels.clients_online', [
+                        'online' => $serverInfo->clients_online - 1,
+                        'max' => $serverInfo->max_clients
+                    ])
+                )
+            );
+        }
     }
 }

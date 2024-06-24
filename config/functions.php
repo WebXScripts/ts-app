@@ -7,7 +7,7 @@ return [
         'app_information' => [
             'class' => App\Functions\Interval\AppInformation::class,
             'enabled' => true,
-            'interval' => 60 * 5,
+            'interval' => 5,
             'channel_id' => 4,
         ],
         'server_name' => [
