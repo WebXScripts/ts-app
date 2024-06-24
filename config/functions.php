@@ -44,7 +44,7 @@ return [
         ],
         'chat_advertising' => [
             'class' => App\Functions\Interval\ChatAdvertising::class,
-            'enabled' => true,
+            'enabled' => false,
             'interval' => 15,
             'ignored_groups' => [],
             'messages' => [
