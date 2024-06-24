@@ -2,18 +2,8 @@
 
 declare(strict_types=1);
 
-namespace App\Utils\Actions;
-
-use Exception;
-
-class BoolNull implements BaseAction
-{
-    /**
-     * @param ...$args
-     * @return bool|null
-     * @throws Exception
-     */
-    public static function handle(...$args): ?bool
+if (!function_exists('bool_null')) {
+    function bool_null(... $args): ?bool
     {
         if (!array_key_exists('field', $args)) {
             throw new Exception('Field is required');
