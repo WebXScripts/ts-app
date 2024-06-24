@@ -19,11 +19,10 @@ readonly class UserGuard extends IntervalFunction
         TeamSpeakApi $teamSpeakApi
     ): void
     {
-        $clients = $teamSpeakApi->client->all([
-            ClientListFlag::INFO,
-        ]);
-
-        $clients->list()
+        $teamSpeakApi
+            ->client
+            ->all([ClientListFlag::INFO])
+            ->list()
             ->filter(static fn(Client $client) => $client->client_type === 0)
             ->each(
                 static function (Client $client) use (&$teamSpeakApi) {

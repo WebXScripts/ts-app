@@ -18,7 +18,6 @@ readonly class ClientsOnline extends IntervalFunction
         TeamSpeakApi $teamSpeakApi
     ): void
     {
-        /** @var ServerInfo $serverInfo */
         $serverInfo = $teamSpeakApi->server->info();
         $teamSpeakApi->channel->edit(
             new ChannelEdit(
