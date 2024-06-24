@@ -7,13 +7,13 @@ return [
         'app_information' => [
             'class' => App\Functions\Interval\AppInformation::class,
             'enabled' => true,
-            'interval' => 60 * 5,
+            'interval' => 5,
             'channel_id' => 4,
         ],
         'server_name' => [
             'class' => App\Functions\Interval\ServerName::class,
             'enabled' => true,
-            'interval' => 30,
+            'interval' => 60,
         ],
         'clients_online' => [
             'class' => App\Functions\Interval\ClientsOnline::class,

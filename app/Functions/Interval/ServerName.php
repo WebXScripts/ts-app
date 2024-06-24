@@ -17,8 +17,7 @@ readonly class ServerName extends IntervalFunction
         TeamSpeakApi $teamSpeakApi
     ): void
     {
-        /** @var ?ServerInfo $serverInfo */
-        $serverInfo = $teamSpeakApi->getServerInfo();
+        $serverInfo = $teamSpeakApi->server->info();
         if (
             $serverInfo === null
             || $serverInfo->hasError()
@@ -31,6 +30,8 @@ readonly class ServerName extends IntervalFunction
             return;
         }
 
-        $teamSpeakApi->setServerName(str_replace(' ', '\s', $serverName));
+        $teamSpeakApi->server->setName(
+            name: $serverName
+        );
     }
 }

@@ -24,7 +24,7 @@ class BotManager
         }
 
         $this->uuid = Str::uuid()->toString();
-        File::put(storage_path('bot_uid'), $this->uuid);
+        File::append(storage_path('bot_uid'), $this->uuid);
     }
 
     public function sendPingToDashboard(): void

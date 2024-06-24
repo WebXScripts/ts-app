@@ -6,7 +6,6 @@ namespace App\Outputs\Methods;
 
 use App\Outputs\BaseOutput;
 use App\Outputs\Methods\Particular\Client;
-use App\Utils\Actions\BoolNull;
 use Illuminate\Support\Collection;
 use Override;
 
@@ -44,34 +43,34 @@ class GetClients extends BaseOutput
                     nickname: $client->get('client_nickname'),
                     client_type: (int)$client->get('client_type'),
                     description: $client->get('client_description'),
-                    away: BoolNull::handle(
+                    away: bool_null(
                         field: $client->get('client_away'),
                     ),
                     away_message: $client->get('client_away_message'),
                     flag_talking: $client->get('client_flag_talking'),
-                    input_muted: BoolNull::handle(
+                    input_muted: bool_null(
                         field: $client->get('client_input_muted'),
                     ),
-                    output_muted: BoolNull::handle(
+                    output_muted: bool_null(
                         field: $client->get('client_output_muted'),
                     ),
-                    input_hardware: BoolNull::handle(
+                    input_hardware: bool_null(
                         field: $client->get('client_input_hardware'),
                     ),
-                    output_hardware: BoolNull::handle(
+                    output_hardware: bool_null(
                         field: $client->get('client_output_hardware'),
                     ),
                     talk_power: (int)$client->get('client_talk_power'),
-                    is_talker: BoolNull::handle(
+                    is_talker: bool_null(
                         field: $client->get('client_is_talker'),
                     ),
-                    is_priority_speaker: BoolNull::handle(
+                    is_priority_speaker: bool_null(
                         field: $client->get('client_is_priority_speaker'),
                     ),
-                    is_recording: BoolNull::handle(
+                    is_recording: bool_null(
                         field: $client->get('client_is_recording'),
                     ),
-                    is_channel_commander: BoolNull::handle(
+                    is_channel_commander: bool_null(
                         field: $client->get('client_is_channel_commander'),
                     ),
                     unique_identifier: $client->get('client_unique_identifier'),

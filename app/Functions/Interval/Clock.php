@@ -18,7 +18,7 @@ readonly class Clock extends IntervalFunction
         TeamSpeakApi $teamSpeakApi
     ): void
     {
-        $teamSpeakApi->channelEdit(
+        $teamSpeakApi->channel->edit(
             new ChannelEdit(
                 cid: config('functions.interval.clock.channel_id'),
                 channel_name: __('channels.clock', [

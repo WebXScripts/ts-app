@@ -19,12 +19,10 @@ readonly class UserGuard extends IntervalFunction
         TeamSpeakApi $teamSpeakApi
     ): void
     {
-        /** @var GetClients $clients */
-        $clients = $teamSpeakApi->getClients([
-            ClientListFlag::INFO,
-        ]);
-
-        $clients->list()
+        $teamSpeakApi
+            ->client
+            ->all([ClientListFlag::INFO])
+            ->list()
             ->filter(static fn(Client $client) => $client->client_type === 0)
             ->each(
                 static function (Client $client) use (&$teamSpeakApi) {
@@ -50,12 +48,12 @@ readonly class UserGuard extends IntervalFunction
                 static function (string $badWord) use ($client, $teamSpeakApi) {
                     if (str_contains(strtolower($client->nickname), strtolower($badWord))) {
                         match (config('functions.interval.user_guard.punishment')) {
-                            'ban' => $teamSpeakApi->banClient(
+                            'ban' => $teamSpeakApi->client->ban(
                                 $client->client_id,
                                 config('functions.interval.user_guard.ban_time'),
                                 __('messages.wrong_nickname')
                             ),
-                            default => $teamSpeakApi->kickClient(
+                            default => $teamSpeakApi->client->kick(
                                 $client->client_id,
                                 __('messages.wrong_nickname')
                             )
@@ -80,12 +78,12 @@ readonly class UserGuard extends IntervalFunction
                 static function (string $badWord) use ($client, $teamSpeakApi) {
                     if (str_contains(strtolower($client->description), strtolower($badWord))) {
                         match (config('functions.interval.user_guard.punishment')) {
-                            'ban' => $teamSpeakApi->banClient(
+                            'ban' => $teamSpeakApi->client->ban(
                                 $client->client_id,
                                 config('functions.interval.user_guard.ban_time'),
                                 __('messages.wrong_description')
                             ),
-                            default => $teamSpeakApi->kickClient(
+                            default => $teamSpeakApi->client->kick(
                                 $client->client_id,
                                 __('messages.wrong_description')
                             )
