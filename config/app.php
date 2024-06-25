@@ -7,6 +7,7 @@ return [
     'env' => 'development',
     'timezone' => 'UTC',
     'locale' => 'en',
+    'debug' => env('APP_DEBUG', false),
 
     'providers' => [
         Illuminate\Translation\TranslationServiceProvider::class

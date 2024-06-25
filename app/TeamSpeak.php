@@ -23,6 +23,8 @@ final class TeamSpeak
 
     private array $intervalFunctions = [];
 
+    private int $keepAlive = 0;
+
     public static function up(): self
     {
 
@@ -43,18 +45,16 @@ final class TeamSpeak
      */
     public function boot(): void
     {
-        $this->socket = fsockopen(
-            config('teamspeak.host'),
-            config('teamspeak.query_port'),
-            $errorCode,
-            $errorString
+        $this->socket = stream_socket_client(
+            address: "tcp://" . config('teamspeak.host') . ":" . config('teamspeak.query_port'),
+            timeout: 30,
         );
 
-        if ($this->socket === false || !is_resource($this->socket)) {
-            throw new ConnectionException($errorString, $errorCode);
+        if (socket_closed($this->socket)) {
+            throw new ConnectionException('Failed to connect to the TeamSpeak server.', -1);
         }
 
-        if (!Str::contains(fgets($this->socket), 'TS3')) {
+        if (!Str::contains(fgets($this->socket), ['TS3', 'TeamSpeak 3', 'ServerQuery'])) {
             throw new ConnectionException('Instance is not a TeamSpeak server.', 1);
         }
 
@@ -87,6 +87,13 @@ final class TeamSpeak
                         $function['class']::handle($this->api);
                     }
                 });
+
+            if (time() - $this->keepAlive >= 5) {
+                $this->keepAlive = time();
+                if($this->api->bot->keepAlive()->hasError()) {
+                    logger()->error('Failed to send keep alive command!');
+                }
+            }
 
             usleep(5000);
         }

@@ -38,7 +38,6 @@ readonly class SocketWrapper
      * @param string $command
      * @param string|null $requestedOutput
      * @return SimpleOutput
-     * @throws ConnectionException
      */
     public function send(string $command, ?string $requestedOutput = null): BaseOutput
     {
@@ -52,14 +51,30 @@ readonly class SocketWrapper
         });
 
         do {
-            $data .= stream_get_contents($this->socket);
+            $data .= stream_get_contents(
+                $this->socket,
+                4096
+            );
+
+            if (socket_closed($this->socket)) {
+                logger()->error('Connection closed.');
+                exit(-1);
+            }
 
             if (Str::contains($data, 'Welcome to the TeamSpeak 3 ServerQuery interface')) {
                 $data = '';
             }
 
             if (Str::contains($data, 'error id=3329')) {
-                throw new ConnectionException('Connection has been closed.', 4);
+                logger()->error('Instance has been banned for flood.');
+                exit(4);
+            }
+
+            if (app()->hasDebugModeEnabled()) {
+                $trimmed = trim($data);
+                if ($trimmed !== '') {
+                    logger()->debug($trimmed);
+                }
             }
         } while (
             Str::position($data, 'msg=') === false
@@ -81,7 +96,6 @@ readonly class SocketWrapper
     /**
      * Select server by ID
      * @return void
-     * @throws ConnectionException
      * @throws TeamSpeakException
      */
     public function selectServer(): void
@@ -96,7 +110,6 @@ readonly class SocketWrapper
     /**
      * Register for events to listen
      * @return void
-     * @throws ConnectionException
      * @throws TeamSpeakException
      */
     public function registerForEvents(): void
@@ -112,7 +125,6 @@ readonly class SocketWrapper
     /**
      * Set bot nickname
      * @return void
-     * @throws ConnectionException
      * @throws TeamSpeakException
      */
     public function setNickname(): void

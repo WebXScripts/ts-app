@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 return [
-    'welcome' => 'Welcome to ts3-bot!',
+    'welcome' => 'Welcome to ts-app!',
     'version' => 'Version :version',
     'author' => 'Bot author: :author',
 
