@@ -2,9 +2,6 @@
 
 declare(strict_types=1);
 
-use App\Utils\ConsoleWrapper;
-use Illuminate\Console\OutputStyle as Output;
-
 if (!function_exists('bool_null')) {
     function bool_null(... $args): ?bool
     {
@@ -49,9 +46,9 @@ if (!function_exists('socket_closed')) {
     }
 }
 
-if (!function_exists('out')) {
-    function out(): ConsoleWrapper
+if (!function_exists('bot')) {
+    function bot(): \App\Services\BotService
     {
-        return app('console');
+        return app('bot');
     }
 }

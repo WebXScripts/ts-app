@@ -32,9 +32,7 @@ readonly class OutputHandler
         }
 
         if (!class_exists($this->outputClass)) {
-            out()
-                ->warn('Output class does not exist: ' . $this->outputClass);
-
+            logger()->warning('Output class does not exist: ' . $this->outputClass);
             return new SimpleOutput(
                 error_id: 10,
                 message: 'Output class does not exist.'
@@ -42,9 +40,7 @@ readonly class OutputHandler
         }
 
         if (!method_exists($this->outputClass, 'createOutput')) {
-            out()
-                ->warn('Output class does not have a createOutput method: ' . $this->outputClass);
-
+            logger()->warning('Output class does not have a createOutput method: ' . $this->outputClass);
             return new SimpleOutput(
                 error_id: 11,
                 message: 'Output class does not have a createOutput method.'

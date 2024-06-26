@@ -25,7 +25,5 @@ final readonly class TeamSpeakApi
         $this->channel = app(ChannelApi::class, ['socketWrapper' => &$this->socketWrapper]);
         $this->server = app(ServerApi::class, ['socketWrapper' => &$this->socketWrapper]);
         $this->bot = app(BotApi::class, ['socketWrapper' => &$this->socketWrapper]);
-
-        out()->info('TeamSpeak API initialized.');
     }
 }

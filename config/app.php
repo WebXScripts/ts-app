@@ -11,6 +11,7 @@ return [
 
     'providers' => [
         Illuminate\Translation\TranslationServiceProvider::class,
+        App\Providers\BotServiceProvider::class,
     ],
 
     'use_dashboard' => env('USE_DASHBOARD', false),

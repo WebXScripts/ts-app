@@ -8,7 +8,6 @@ use App\Inputs\ChannelEdit;
 use App\Outputs\SimpleOutput;
 use App\Utils\SocketWrapper;
 use Exception;
-use Illuminate\Support\Facades\Log;
 
 final readonly class ChannelApi
 {
@@ -25,7 +24,7 @@ final readonly class ChannelApi
                 ->socketWrapper
                 ->send('channeledit ' . $channelEdit->toSocket());
         } catch (Exception $e) {
-            Log::error('Failed to edit channel: ' . $e);
+            logger()->error('Failed to edit channel: ' . $e);
         }
 
         return new SimpleOutput(1, 'Failed to edit channel.');

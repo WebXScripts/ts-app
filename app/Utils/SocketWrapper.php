@@ -59,7 +59,7 @@ readonly class SocketWrapper
             );
 
             if (socket_closed($this->socket)) {
-                out()->error('Connection closed.');
+                logger()->error('Connection closed.');
                 exit(-1);
             }
 
@@ -68,13 +68,13 @@ readonly class SocketWrapper
             }
 
             if (Str::contains($data, 'error id=3329')) {
-                out()->error('Bot has been flood banned.');
+                logger()->error('Bot has been flood banned.');
                 exit(4);
             }
 
             if (app()->hasDebugModeEnabled()) {
                 $trimmed = trim($data);
-                if ($trimmed !== '') out()->comment($command . ' -> ' . $trimmed);
+                if ($trimmed !== '') logger()->debug($command . ' -> ' . $trimmed);
             }
         } while (
             Str::position($data, 'msg=') === false

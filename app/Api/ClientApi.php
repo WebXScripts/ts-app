@@ -9,7 +9,6 @@ use App\Outputs\Methods\GetClients;
 use App\Outputs\SimpleOutput;
 use App\Utils\SocketWrapper;
 use Exception;
-use Illuminate\Support\Facades\Log;
 
 final readonly class ClientApi
 {
@@ -26,7 +25,7 @@ final readonly class ClientApi
                 ->socketWrapper
                 ->send('sendtextmessage targetmode=1 target=' . $client_id . ' msg=' . escape_text($message));
         } catch (Exception $e) {
-            Log::error('Failed to send message to client: ' . $e);
+            logger()->error('Failed to send message to client: ' . $e);
         }
 
         return new SimpleOutput(1, 'Failed to send message to client.');
@@ -39,7 +38,7 @@ final readonly class ClientApi
                 ->socketWrapper
                 ->send('clientpoke clid=' . $client_id . ' msg=' . escape_text($message ?? ''));
         } catch (Exception $e) {
-            Log::error('Failed to poke client: ' . $e);
+            logger()->error('Failed to poke client: ' . $e);
         }
 
         return new SimpleOutput(1, 'Failed to poke client.');
@@ -52,7 +51,7 @@ final readonly class ClientApi
                 ->socketWrapper
                 ->send('clientkick clid=' . $client_id . ' reasonid=5 reasonmsg=' . escape_text($reason ?? ''));
         } catch (Exception $e) {
-            Log::error('Failed to kick client: ' . $e);
+            logger()->error('Failed to kick client: ' . $e);
         }
 
         return new SimpleOutput(1, 'Failed to kick client.');
@@ -65,7 +64,7 @@ final readonly class ClientApi
                 ->socketWrapper
                 ->send('banclient clid=' . $client_id . ' time=' . $time . ' banreason=' . escape_text($reason ?? ''));
         } catch (Exception $e) {
-            Log::error('Failed to ban client: ' . $e);
+            logger()->error('Failed to ban client: ' . $e);
         }
 
         return new SimpleOutput(1, 'Failed to ban client.');
@@ -82,7 +81,7 @@ final readonly class ClientApi
                 ->socketWrapper
                 ->send('clientlist ' . implode(' ', array_map(static fn($flag) => '-' . $flag->value, $flags ?? [])), GetClients::class);
         } catch (Exception $e) {
-            Log::error('Failed to get clients: ' . $e);
+            logger()->error('Failed to get clients: ' . $e);
         }
 
         return new SimpleOutput(1, 'Failed to get clients.');
