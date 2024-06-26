@@ -10,7 +10,7 @@ return [
     'debug' => env('APP_DEBUG', false),
 
     'providers' => [
-        Illuminate\Translation\TranslationServiceProvider::class
+        Illuminate\Translation\TranslationServiceProvider::class,
     ],
 
     'use_dashboard' => env('USE_DASHBOARD', false),

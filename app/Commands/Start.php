@@ -3,7 +3,9 @@
 namespace App\Commands;
 
 use App\TeamSpeak;
+use App\Utils\ConsoleWrapper;
 use LaravelZero\Framework\Commands\Command;
+use Symfony\Component\Console\Helper\OutputWrapper;
 use Throwable;
 
 class Start extends Command
@@ -14,31 +16,21 @@ class Start extends Command
 
     public function handle(): void
     {
-        $this->header();
-
-        $this->info(__('bot.connecting'));
+        $this->title(__('bot.welcome'));
+        app()->instance('console', new ConsoleWrapper($this->output));
         $bot = TeamSpeak::up();
-
         try {
-            $bot->boot();
-            $bot->wrapper()->login();
-            $bot->wrapper()->selectServer();
-            $bot->wrapper()->setNickname();
-            $bot->wrapper()->registerForEvents();
+            $bot->boot()
+                ->wrapper()
+                ->login()
+                ->selectServer()
+                ->setNickname()
+                ->registerForEvents();
         } catch (Throwable $e) {
             $this->error($e->getMessage());
             return;
         }
 
-        $this->info(__('bot.connected'));
         $bot->listen();
-    }
-
-    private function header(): void
-    {
-        $this->info(__('bot.welcome'));
-        $this->info(__('bot.version', ['version' => config('app.version')]));
-        $this->info(__('bot.author', ['author' => config('app.author')]));
-        $this->newLine();
     }
 }

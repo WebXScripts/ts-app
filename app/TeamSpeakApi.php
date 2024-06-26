@@ -8,14 +8,7 @@ use App\Api\BotApi;
 use App\Api\ChannelApi;
 use App\Api\ClientApi;
 use App\Api\ServerApi;
-use App\Inputs\ChannelEdit;
-use App\Outputs\BaseOutput;
-use App\Outputs\Methods\GetClients;
-use App\Outputs\Methods\ServerInfo;
-use App\Outputs\SimpleOutput;
 use App\Utils\SocketWrapper;
-use Exception;
-use Illuminate\Support\Facades\Log;
 
 final readonly class TeamSpeakApi
 {
@@ -32,5 +25,7 @@ final readonly class TeamSpeakApi
         $this->channel = app(ChannelApi::class, ['socketWrapper' => &$this->socketWrapper]);
         $this->server = app(ServerApi::class, ['socketWrapper' => &$this->socketWrapper]);
         $this->bot = app(BotApi::class, ['socketWrapper' => &$this->socketWrapper]);
+
+        out()->info('TeamSpeak API initialized.');
     }
 }

@@ -7,9 +7,11 @@ namespace App;
 use App\Exceptions\ConnectionException;
 use App\Handlers\Events\OnJoinHandler;
 use App\Utils\BotManager;
+use App\Utils\ConsoleWrapper;
 use App\Utils\SocketWrapper;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
+use Illuminate\Console\OutputStyle as Output;
 
 final class TeamSpeak
 {
@@ -27,23 +29,22 @@ final class TeamSpeak
 
     public static function up(): self
     {
-
         $manager = app(BotManager::class);
         $manager->botUID();
 
-        if (config('app.use_dashboard')) {
-            $manager->sendPingToDashboard();
-        }
+        out()->info(__('bot.version', ['version' => config('app.version')]));
+        out()->info(__('bot.author', ['author' => config('app.author')]));
+        out()->newLine();
 
         return new self();
     }
 
     /**
      * Connect to the TeamSpeak server.
-     * @return void
+     * @return TeamSpeak
      * @throws ConnectionException
      */
-    public function boot(): void
+    public function boot(): self
     {
         $this->socket = stream_socket_client(
             address: "tcp://" . config('teamspeak.host') . ":" . config('teamspeak.query_port'),
@@ -65,6 +66,9 @@ final class TeamSpeak
             ->filter(static fn($function) => $function['enabled']);
 
         stream_set_blocking($this->socket, false);
+        out()->info('Connected to the TeamSpeak server.');
+
+        return $this;
     }
 
     public function listen(): void
@@ -91,7 +95,7 @@ final class TeamSpeak
             if (time() - $this->keepAlive >= 5) {
                 $this->keepAlive = time();
                 if($this->api->bot->keepAlive()->hasError()) {
-                    logger()->error('Failed to send keep alive command!');
+                    out()->error('Failed to send keep alive.');
                 }
             }
 

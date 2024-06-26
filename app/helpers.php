@@ -2,6 +2,9 @@
 
 declare(strict_types=1);
 
+use App\Utils\ConsoleWrapper;
+use Illuminate\Console\OutputStyle as Output;
+
 if (!function_exists('bool_null')) {
     function bool_null(... $args): ?bool
     {
@@ -43,5 +46,12 @@ if (!function_exists('socket_closed')) {
     function socket_closed(mixed $socket): bool
     {
         return !is_resource($socket) || feof($socket);
+    }
+}
+
+if (!function_exists('out')) {
+    function out(): ConsoleWrapper
+    {
+        return app('console');
     }
 }

@@ -32,7 +32,8 @@ readonly class OutputHandler
         }
 
         if (!class_exists($this->outputClass)) {
-            Log::error('Output class does not exist.');
+            out()
+                ->warn('Output class does not exist: ' . $this->outputClass);
 
             return new SimpleOutput(
                 error_id: 10,
@@ -41,7 +42,8 @@ readonly class OutputHandler
         }
 
         if (!method_exists($this->outputClass, 'createOutput')) {
-            Log::error('Output class does not have a createOutput method.');
+            out()
+                ->warn('Output class does not have a createOutput method: ' . $this->outputClass);
 
             return new SimpleOutput(
                 error_id: 11,
