@@ -3,6 +3,10 @@
 declare(strict_types=1);
 
 return [
+    'on_client_join' => [
+        \App\Functions\OnJoin\WelcomeMessage::class,
+    ],
+    /*
     'interval' => [
         'app_information' => [
             'class' => App\Functions\Interval\AppInformation::class,
@@ -74,4 +78,5 @@ return [
             ]
         ],
     ]
+    */
 ];

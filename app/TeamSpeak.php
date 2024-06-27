@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App;
 
+use App\Exceptions\BotException;
 use App\Exceptions\ConnectionException;
 use App\Handlers\Events\OnJoinHandler;
-use App\Services\BotService;
 use App\Utils\SocketWrapper;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
@@ -25,9 +25,17 @@ final class TeamSpeak
 
     private int $keepAlive = 0;
 
+    /**
+     * @return self
+     * @throws Exceptions\BotException
+     */
     public static function up(): self
     {
         bot()->generateUniqueId();
+        rescue(fn() => bot()->registerFromConfig(clear: true), function(BotException $exception) {
+            logger()->error($exception->getMessage());
+        });
+
         return new self();
     }
 
