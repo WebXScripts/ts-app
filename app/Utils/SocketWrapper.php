@@ -20,10 +20,10 @@ readonly class SocketWrapper
 
     /**
      * Login to TeamSpeak3 server query
-     * @return void
+     * @return SocketWrapper
      * @throws ConnectionException
      */
-    public function login(): void
+    public function login(): self
     {
         if ($this
             ->send('login ' . config('teamspeak.serverquery_login') . ' ' . config('teamspeak.serverquery_password'))
@@ -31,6 +31,8 @@ readonly class SocketWrapper
         ) {
             throw new ConnectionException('Failed to login.', 2);
         }
+
+        return $this;
     }
 
     /**
@@ -38,7 +40,6 @@ readonly class SocketWrapper
      * @param string $command
      * @param string|null $requestedOutput
      * @return SimpleOutput
-     * @throws ConnectionException
      */
     public function send(string $command, ?string $requestedOutput = null): BaseOutput
     {
@@ -52,14 +53,28 @@ readonly class SocketWrapper
         });
 
         do {
-            $data .= stream_get_contents($this->socket);
+            $data .= stream_get_contents(
+                $this->socket,
+                4096
+            );
+
+            if (socket_closed($this->socket)) {
+                logger()->error('Connection closed.');
+                exit(-1);
+            }
 
             if (Str::contains($data, 'Welcome to the TeamSpeak 3 ServerQuery interface')) {
                 $data = '';
             }
 
             if (Str::contains($data, 'error id=3329')) {
-                throw new ConnectionException('Connection has been closed.', 4);
+                logger()->error('Bot has been flood banned.');
+                exit(4);
+            }
+
+            if (app()->hasDebugModeEnabled()) {
+                $trimmed = trim($data);
+                if ($trimmed !== '') logger()->debug($command . ' -> ' . $trimmed);
             }
         } while (
             Str::position($data, 'msg=') === false
@@ -80,26 +95,27 @@ readonly class SocketWrapper
 
     /**
      * Select server by ID
-     * @return void
-     * @throws ConnectionException
+     * @return SocketWrapper
      * @throws TeamSpeakException
      */
-    public function selectServer(): void
+    public function selectServer(): self
     {
         if ($this
             ->send('use sid=' . config('teamspeak.server_id'))
-            ->hasError()) {
+            ->hasError()
+        ) {
             throw new TeamSpeakException('Failed to select server.', 2);
         }
+
+        return $this;
     }
 
     /**
      * Register for events to listen
-     * @return void
-     * @throws ConnectionException
+     * @return SocketWrapper
      * @throws TeamSpeakException
      */
-    public function registerForEvents(): void
+    public function registerForEvents(): self
     {
         if (
             $this->send('servernotifyregister event=server')->hasError()
@@ -107,15 +123,16 @@ readonly class SocketWrapper
         ) {
             throw new TeamSpeakException('Failed to register for events.', 3);
         }
+
+        return $this;
     }
 
     /**
      * Set bot nickname
-     * @return void
-     * @throws ConnectionException
+     * @return SocketWrapper
      * @throws TeamSpeakException
      */
-    public function setNickname(): void
+    public function setNickname(): self
     {
         if ($this
             ->send('clientupdate client_nickname=' . str_replace(' ', '\s', config('teamspeak.bot_nickname')))
@@ -123,5 +140,7 @@ readonly class SocketWrapper
         ) {
             throw new TeamSpeakException('Failed to set nickname.', 5);
         }
+
+        return $this;
     }
 }

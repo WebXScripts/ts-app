@@ -38,3 +38,17 @@ if (!function_exists('escape_text')) {
         return $text;
     }
 }
+
+if (!function_exists('socket_closed')) {
+    function socket_closed(mixed $socket): bool
+    {
+        return !is_resource($socket) || feof($socket);
+    }
+}
+
+if (!function_exists('bot')) {
+    function bot(): \App\Services\BotService
+    {
+        return app('bot');
+    }
+}

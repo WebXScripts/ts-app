@@ -4,12 +4,11 @@ declare(strict_types=1);
 
 namespace App\Api;
 
-use App\Inputs\ChannelEdit;
 use App\Outputs\SimpleOutput;
 use App\Utils\SocketWrapper;
 use Exception;
 
-final readonly class ChannelApi
+final readonly class BotApi
 {
     public function __construct(
         private SocketWrapper $socketWrapper
@@ -17,16 +16,14 @@ final readonly class ChannelApi
     {
     }
 
-    public function edit(ChannelEdit $channelEdit): SimpleOutput
+    public function keepAlive(): SimpleOutput
     {
         try {
             return $this
                 ->socketWrapper
-                ->send('channeledit ' . $channelEdit->toSocket());
+                ->send('whoami');
         } catch (Exception $e) {
-            logger()->error('Failed to edit channel: ' . $e);
+            return new SimpleOutput(100, 'Failed to keep alive - check the logs.');
         }
-
-        return new SimpleOutput(1, 'Failed to edit channel.');
     }
 }

@@ -6,7 +6,7 @@ namespace App;
 
 use App\Exceptions\ConnectionException;
 use App\Handlers\Events\OnJoinHandler;
-use App\Utils\BotManager;
+use App\Services\BotService;
 use App\Utils\SocketWrapper;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
@@ -23,38 +23,31 @@ final class TeamSpeak
 
     private array $intervalFunctions = [];
 
+    private int $keepAlive = 0;
+
     public static function up(): self
     {
-
-        $manager = app(BotManager::class);
-        $manager->botUID();
-
-        if (config('app.use_dashboard')) {
-            $manager->sendPingToDashboard();
-        }
-
+        bot()->generateUniqueId();
         return new self();
     }
 
     /**
      * Connect to the TeamSpeak server.
-     * @return void
+     * @return TeamSpeak
      * @throws ConnectionException
      */
-    public function boot(): void
+    public function boot(): self
     {
-        $this->socket = fsockopen(
-            config('teamspeak.host'),
-            config('teamspeak.query_port'),
-            $errorCode,
-            $errorString
+        $this->socket = stream_socket_client(
+            address: "tcp://" . config('teamspeak.host') . ":" . config('teamspeak.query_port'),
+            timeout: 30,
         );
 
-        if ($this->socket === false || !is_resource($this->socket)) {
-            throw new ConnectionException($errorString, $errorCode);
+        if (socket_closed($this->socket)) {
+            throw new ConnectionException('Failed to connect to the TeamSpeak server.', -1);
         }
 
-        if (!Str::contains(fgets($this->socket), 'TS3')) {
+        if (!Str::contains(fgets($this->socket), ['TS3', 'TeamSpeak 3', 'ServerQuery'])) {
             throw new ConnectionException('Instance is not a TeamSpeak server.', 1);
         }
 
@@ -65,6 +58,8 @@ final class TeamSpeak
             ->filter(static fn($function) => $function['enabled']);
 
         stream_set_blocking($this->socket, false);
+
+        return $this;
     }
 
     public function listen(): void
@@ -87,6 +82,13 @@ final class TeamSpeak
                         $function['class']::handle($this->api);
                     }
                 });
+
+            if (time() - $this->keepAlive >= 5) {
+                $this->keepAlive = time();
+                if($this->api->bot->keepAlive()->hasError()) {
+                    logger()->error('Failed to send keep alive.');
+                }
+            }
 
             usleep(5000);
         }
