@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "fbf29afb70571822a6877738b7377d53",
+    "content-hash": "f70bf3474cdafdc9787230f32ae34468",
     "packages": [
         {
             "name": "brick/math",
@@ -747,7 +747,7 @@
         },
         {
             "name": "illuminate/bus",
-            "version": "v11.11.1",
+            "version": "v11.13.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/bus.git",
@@ -800,7 +800,7 @@
         },
         {
             "name": "illuminate/cache",
-            "version": "v11.11.1",
+            "version": "v11.13.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/cache.git",
@@ -862,16 +862,16 @@
         },
         {
             "name": "illuminate/collections",
-            "version": "v11.11.1",
+            "version": "v11.13.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/collections.git",
-                "reference": "176f39271b5f85bee3c4bf797d1e95102d55e12b"
+                "reference": "6923dc8c83b8c065c3b89cb4c2a4b10a4288ce79"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/illuminate/collections/zipball/176f39271b5f85bee3c4bf797d1e95102d55e12b",
-                "reference": "176f39271b5f85bee3c4bf797d1e95102d55e12b",
+                "url": "https://api.github.com/repos/illuminate/collections/zipball/6923dc8c83b8c065c3b89cb4c2a4b10a4288ce79",
+                "reference": "6923dc8c83b8c065c3b89cb4c2a4b10a4288ce79",
                 "shasum": ""
             },
             "require": {
@@ -913,11 +913,11 @@
                 "issues": "https://github.com/laravel/framework/issues",
                 "source": "https://github.com/laravel/framework"
             },
-            "time": "2024-06-11T13:32:31+00:00"
+            "time": "2024-06-21T15:52:51+00:00"
         },
         {
             "name": "illuminate/conditionable",
-            "version": "v11.11.1",
+            "version": "v11.13.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/conditionable.git",
@@ -963,7 +963,7 @@
         },
         {
             "name": "illuminate/config",
-            "version": "v11.11.1",
+            "version": "v11.13.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/config.git",
@@ -1011,16 +1011,16 @@
         },
         {
             "name": "illuminate/console",
-            "version": "v11.11.1",
+            "version": "v11.13.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/console.git",
-                "reference": "09d767930f84185a37cd66a8ca70c224394c3533"
+                "reference": "a82fb59ac16fd4efcfd521a05babbd2a5f10422d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/illuminate/console/zipball/09d767930f84185a37cd66a8ca70c224394c3533",
-                "reference": "09d767930f84185a37cd66a8ca70c224394c3533",
+                "url": "https://api.github.com/repos/illuminate/console/zipball/a82fb59ac16fd4efcfd521a05babbd2a5f10422d",
+                "reference": "a82fb59ac16fd4efcfd521a05babbd2a5f10422d",
                 "shasum": ""
             },
             "require": {
@@ -1073,11 +1073,11 @@
                 "issues": "https://github.com/laravel/framework/issues",
                 "source": "https://github.com/laravel/framework"
             },
-            "time": "2024-06-19T17:20:34+00:00"
+            "time": "2024-06-27T07:57:32+00:00"
         },
         {
             "name": "illuminate/container",
-            "version": "v11.11.1",
+            "version": "v11.13.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/container.git",
@@ -1128,7 +1128,7 @@
         },
         {
             "name": "illuminate/contracts",
-            "version": "v11.11.1",
+            "version": "v11.13.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/contracts.git",
@@ -1175,8 +1175,76 @@
             "time": "2024-05-21T17:42:34+00:00"
         },
         {
+            "name": "illuminate/database",
+            "version": "v11.13.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/illuminate/database.git",
+                "reference": "d2bd095eab3d7a1e869b5824bcada7492e447ec7"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/illuminate/database/zipball/d2bd095eab3d7a1e869b5824bcada7492e447ec7",
+                "reference": "d2bd095eab3d7a1e869b5824bcada7492e447ec7",
+                "shasum": ""
+            },
+            "require": {
+                "brick/math": "^0.9.3|^0.10.2|^0.11|^0.12",
+                "ext-pdo": "*",
+                "illuminate/collections": "^11.0",
+                "illuminate/container": "^11.0",
+                "illuminate/contracts": "^11.0",
+                "illuminate/macroable": "^11.0",
+                "illuminate/support": "^11.0",
+                "php": "^8.2"
+            },
+            "suggest": {
+                "ext-filter": "Required to use the Postgres database driver.",
+                "fakerphp/faker": "Required to use the eloquent factory builder (^1.21).",
+                "illuminate/console": "Required to use the database commands (^11.0).",
+                "illuminate/events": "Required to use the observers with Eloquent (^11.0).",
+                "illuminate/filesystem": "Required to use the migrations (^11.0).",
+                "illuminate/pagination": "Required to paginate the result set (^11.0).",
+                "symfony/finder": "Required to use Eloquent model factories (^7.0)."
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "11.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Illuminate\\Database\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Taylor Otwell",
+                    "email": "taylor@laravel.com"
+                }
+            ],
+            "description": "The Illuminate Database package.",
+            "homepage": "https://laravel.com",
+            "keywords": [
+                "database",
+                "laravel",
+                "orm",
+                "sql"
+            ],
+            "support": {
+                "issues": "https://github.com/laravel/framework/issues",
+                "source": "https://github.com/laravel/framework"
+            },
+            "time": "2024-06-24T20:24:42+00:00"
+        },
+        {
             "name": "illuminate/events",
-            "version": "v11.11.1",
+            "version": "v11.13.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/events.git",
@@ -1231,7 +1299,7 @@
         },
         {
             "name": "illuminate/filesystem",
-            "version": "v11.11.1",
+            "version": "v11.13.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/filesystem.git",
@@ -1298,7 +1366,7 @@
         },
         {
             "name": "illuminate/log",
-            "version": "v11.11.1",
+            "version": "v11.13.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/log.git",
@@ -1347,7 +1415,7 @@
         },
         {
             "name": "illuminate/macroable",
-            "version": "v11.11.1",
+            "version": "v11.13.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/macroable.git",
@@ -1393,7 +1461,7 @@
         },
         {
             "name": "illuminate/pipeline",
-            "version": "v11.11.1",
+            "version": "v11.13.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/pipeline.git",
@@ -1441,7 +1509,7 @@
         },
         {
             "name": "illuminate/process",
-            "version": "v11.11.1",
+            "version": "v11.13.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/process.git",
@@ -1492,16 +1560,16 @@
         },
         {
             "name": "illuminate/support",
-            "version": "v11.11.1",
+            "version": "v11.13.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/support.git",
-                "reference": "6b7ca0121e4f3f7e0a02df2d1d54237243518edd"
+                "reference": "ee18738fad2592734c3db7542bb8c0c4bf5afd89"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/illuminate/support/zipball/6b7ca0121e4f3f7e0a02df2d1d54237243518edd",
-                "reference": "6b7ca0121e4f3f7e0a02df2d1d54237243518edd",
+                "url": "https://api.github.com/repos/illuminate/support/zipball/ee18738fad2592734c3db7542bb8c0c4bf5afd89",
+                "reference": "ee18738fad2592734c3db7542bb8c0c4bf5afd89",
                 "shasum": ""
             },
             "require": {
@@ -1562,11 +1630,11 @@
                 "issues": "https://github.com/laravel/framework/issues",
                 "source": "https://github.com/laravel/framework"
             },
-            "time": "2024-06-19T14:30:19+00:00"
+            "time": "2024-06-27T08:41:09+00:00"
         },
         {
             "name": "illuminate/testing",
-            "version": "v11.11.1",
+            "version": "v11.13.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/testing.git",
@@ -1625,7 +1693,7 @@
         },
         {
             "name": "illuminate/translation",
-            "version": "v11.11.1",
+            "version": "v11.13.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/translation.git",
@@ -1676,16 +1744,16 @@
         },
         {
             "name": "illuminate/view",
-            "version": "v11.11.1",
+            "version": "v11.13.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/view.git",
-                "reference": "21f6e7c197de297864a8de3f42ff73e8e3b5a1d3"
+                "reference": "3e66fa68c8ef4081ba12243c1eb3a02fded58958"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/illuminate/view/zipball/21f6e7c197de297864a8de3f42ff73e8e3b5a1d3",
-                "reference": "21f6e7c197de297864a8de3f42ff73e8e3b5a1d3",
+                "url": "https://api.github.com/repos/illuminate/view/zipball/3e66fa68c8ef4081ba12243c1eb3a02fded58958",
+                "reference": "3e66fa68c8ef4081ba12243c1eb3a02fded58958",
                 "shasum": ""
             },
             "require": {
@@ -1726,7 +1794,7 @@
                 "issues": "https://github.com/laravel/framework/issues",
                 "source": "https://github.com/laravel/framework"
             },
-            "time": "2024-05-21T17:55:25+00:00"
+            "time": "2024-06-20T14:43:11+00:00"
         },
         {
             "name": "jolicode/jolinotif",
@@ -5265,6 +5333,37 @@
                 "source": "https://github.com/webmozarts/assert/tree/1.11.0"
             },
             "time": "2022-06-03T18:03:27+00:00"
+        },
+        {
+            "name": "webxscripts/ts-app-models",
+            "version": "dev-main",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/WebXScripts/ts-app-models.git",
+                "reference": "fe07749be86c4e2c5cb6b7a56068c05f26dafcaa"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/WebXScripts/ts-app-models/zipball/fe07749be86c4e2c5cb6b7a56068c05f26dafcaa",
+                "reference": "fe07749be86c4e2c5cb6b7a56068c05f26dafcaa",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/database": "^11.13"
+            },
+            "default-branch": true,
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Webis\\TsAppModels\\": "src/"
+                }
+            },
+            "description": "Shared models for ts-apps applications.",
+            "support": {
+                "source": "https://github.com/WebXScripts/ts-app-models/tree/main",
+                "issues": "https://github.com/WebXScripts/ts-app-models/issues"
+            },
+            "time": "2024-06-27T11:57:27+00:00"
         }
     ],
     "packages-dev": [
@@ -5408,6 +5507,69 @@
                 "source": "https://github.com/doctrine/deprecations/tree/1.1.3"
             },
             "time": "2024-01-30T19:34:25+00:00"
+        },
+        {
+            "name": "fakerphp/faker",
+            "version": "v1.23.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/FakerPHP/Faker.git",
+                "reference": "bfb4fe148adbf78eff521199619b93a52ae3554b"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/FakerPHP/Faker/zipball/bfb4fe148adbf78eff521199619b93a52ae3554b",
+                "reference": "bfb4fe148adbf78eff521199619b93a52ae3554b",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.4 || ^8.0",
+                "psr/container": "^1.0 || ^2.0",
+                "symfony/deprecation-contracts": "^2.2 || ^3.0"
+            },
+            "conflict": {
+                "fzaninotto/faker": "*"
+            },
+            "require-dev": {
+                "bamarni/composer-bin-plugin": "^1.4.1",
+                "doctrine/persistence": "^1.3 || ^2.0",
+                "ext-intl": "*",
+                "phpunit/phpunit": "^9.5.26",
+                "symfony/phpunit-bridge": "^5.4.16"
+            },
+            "suggest": {
+                "doctrine/orm": "Required to use Faker\\ORM\\Doctrine",
+                "ext-curl": "Required by Faker\\Provider\\Image to download images.",
+                "ext-dom": "Required by Faker\\Provider\\HtmlLorem for generating random HTML.",
+                "ext-iconv": "Required by Faker\\Provider\\ru_RU\\Text::realText() for generating real Russian text.",
+                "ext-mbstring": "Required for multibyte Unicode string functionality."
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Faker\\": "src/Faker/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "François Zaninotto"
+                }
+            ],
+            "description": "Faker is a PHP library that generates fake data for you.",
+            "keywords": [
+                "data",
+                "faker",
+                "fixtures"
+            ],
+            "support": {
+                "issues": "https://github.com/FakerPHP/Faker/issues",
+                "source": "https://github.com/FakerPHP/Faker/tree/v1.23.1"
+            },
+            "time": "2024-01-02T13:46:09+00:00"
         },
         {
             "name": "fidry/cpu-core-counter",
@@ -7886,7 +8048,9 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {
+        "webxscripts/ts-app-models": 20
+    },
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {

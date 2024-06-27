@@ -17,13 +17,16 @@
     ],
     "require": {
         "php": "^8.3",
+        "illuminate/database": "^11.5",
         "illuminate/log": "^11.5.0",
         "illuminate/translation": "^v11.5.0",
         "laravel-zero/framework": "^11.0",
         "nunomaduro/termwind": "^2.0",
-        "symfony/translation": "^6.4"
+        "symfony/translation": "^6.4",
+        "webxscripts/ts-app-models": "dev-main"
     },
     "require-dev": {
+        "fakerphp/faker": "^1.23",
         "laravel/pint": "^1.13",
         "mockery/mockery": "^1.6",
         "pestphp/pest": "^2.22"
@@ -33,9 +36,7 @@
             "app/helpers.php"
         ],
         "psr-4": {
-            "App\\": "app/",
-            "Database\\Factories\\": "database/factories/",
-            "Database\\Seeders\\": "database/seeders/"
+            "App\\": "app/"
         }
     },
     "autoload-dev": {
@@ -43,6 +44,12 @@
             "Tests\\": "tests/"
         }
     },
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "git@github.com:WebXScripts/ts-app-models.git"
+        }
+    ],
     "config": {
         "preferred-install": "dist",
         "sort-packages": true,
